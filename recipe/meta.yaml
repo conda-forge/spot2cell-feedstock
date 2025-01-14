@@ -6,7 +6,7 @@ package:
   version: {{ version }}
 
 source:
-  url: https://pypi.io/packages/source/{{ name[0] }}/{{ name }}/spot2cell-{{ version }}.tar.gz
+  url: https://pypi.org/packages/source/{{ name[0] }}/{{ name }}/spot2cell-{{ version }}.tar.gz
   sha256: 7a0b89ffa898c8fd462c62a629969c1383b318c9658b6db8bc02b9469c3c0da9
 
 build:
@@ -14,15 +14,15 @@ build:
     - spots2cells = spot2cell.scripts.spots2cells:main
   noarch: python
   script: {{ PYTHON }} -m pip install . -vv --no-deps --no-build-isolation
-  number: 0
+  number: 1
 
 requirements:
   host:
-    - python >=3.9
+    - python {{ python_min }}
     - setuptools >=61.0
     - pip
   run:
-    - python >=3.9
+    - python >={{ python_min }}
     - numpy
     - tifffile
 
@@ -34,6 +34,7 @@ test:
     - spots2cells --help
   requires:
     - pip
+    - python {{ python_min }}
 
 about:
   home: https://github.com/SchapiroLabor/spot2cell
